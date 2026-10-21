@@ -20,4 +20,15 @@
   <Folder Name="/06-Shelly.CodeExecution/">
     <Project Path="06-Shelly.CodeExecution/Shelly.CodeExecution.csproj" />
   </Folder>
+  <Folder Name="/07-Shelly.Web/">
+    <File Path="07-Shelly.Web/Caddyfile" />
+    <File Path="07-Shelly.Web/index.html" />
+  </Folder>
+  <Folder Name="/07-Shelly.Web/css/">
+    <File Path="07-Shelly.Web/css/site.css" />
+  </Folder>
+  <Folder Name="/07-Shelly.Web/js/">
+    <File Path="07-Shelly.Web/js/app.js" />
+    <File Path="07-Shelly.Web/js/shelly.js" />
+  </Folder>
 </Solution>
