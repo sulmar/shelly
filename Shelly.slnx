@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/01-Shelly.Http/">
+    <Project Path="01-Shelly.Http/Shelly.Http.csproj" />
+  </Folder>
+  <Folder Name="/02-Shelly.ToolCalling/">
+    <Project Path="02-Shelly.ToolCalling/Shelly.ToolCalling.csproj" />
+  </Folder>
+  <Folder Name="/03-Shelly.Mcp/">
+    <Project Path="03-Shelly.Mcp/Shelly.Mcp.csproj" />
+  </Folder>
+</Solution>
