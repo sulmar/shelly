@@ -156,6 +156,75 @@ Serwer MCP wykonuje żądania HTTP do lokalnego API Shelly.
 4. Zatrzymaj serwer i sprawdź zachowanie klienta.
 5. Zastanów się, jak udostępnić te same narzędzia innemu klientowi MCP.
 
+## Połączenie z Claude Code CLI
+
+Serwer `Shelly.Mcp` można podłączyć do **Claude Code** jako lokalny serwer MCP wykorzystujący transport `stdio`.
+
+Claude automatycznie uruchamia serwer MCP jako proces potomny, dlatego nie trzeba uruchamiać go wcześniej w osobnym terminalu.
+
+### 1. Zbudowanie serwera
+
+Z katalogu `Shelly`:
+
+```bash
+dotnet build 03-Shelly.Mcp -c Release
+```
+
+### 2. Rejestracja serwera w Claude Code
+
+```bash
+claude mcp add --transport stdio shelly -- \
+  dotnet /Users/username/Projects/Shelly/03-Shelly.Mcp/bin/Release/net10.0/Shelly.Mcp.dll \
+  http://172.20.10.2
+```
+
+Należy zastąpić:
+- Ścieżkę do `Shelly.Mcp.dll` rzeczywistą ścieżką na komputerze.
+- `172.20.10.2` rzeczywistym adresem IP urządzenia Shelly.
+
+Pełną ścieżkę do DLL można sprawdzić poleceniem:
+
+```bash
+realpath 03-Shelly.Mcp/bin/Release/*/Shelly.Mcp.dll
+```
+
+Domyślnie Claude zapisuje konfigurację serwera MCP lokalnie dla bieżącego projektu.
+
+Aby serwer był dostępny we wszystkich projektach, można użyć `--scope user`.
+
+### 3. Sprawdzenie połączenia
+
+```bash
+claude mcp list
+claude mcp get shelly
+```
+
+Następnie uruchom Claude Code:
+
+```bash
+claude
+```
+
+Wpisz `/mcp`, aby sprawdzić stan połączenia z serwerem.
+
+### 4. Sterowanie lampką
+
+W rozmowie z Claude wpisz:
+
+> Zapal lampkę.
+
+Claude powinien wybrać narzędzie `TurnOnLight`, wywołać je przez MCP i potwierdzić wykonanie operacji.
+
+Analogicznie:
+
+> Zgaś lampkę.
+
+Claude wywoła narzędzie `TurnOffLight`.
+
+**W tym przykładzie Claude jest klientem MCP, a aplikacja .NET działa jako serwer MCP.**
+
+Nie jest potrzebny Ollama ani własna implementacja klienta MCP.
+
 ## Co dalej?
 
 Kolejnym krokiem może być podłączenie serwera `Shelly.Mcp` do aplikacji wykorzystującej model językowy.
