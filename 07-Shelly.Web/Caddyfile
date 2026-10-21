@@ -1,0 +1,10 @@
+http://localhost:5070 {
+	handle /rpc/* {
+		reverse_proxy localhost:8080
+	}
+
+	handle {
+		root * .
+		file_server
+	}
+}

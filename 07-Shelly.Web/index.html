@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Shelly Web</title>
+
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Shelly Web</h1>
+            <p>Sterowanie lampką Shelly</p>
+        </header>
+
+        <section class="device">
+            <div class="device-header">
+                <h2>Lampka</h2>
+                <span id="indicator" class="indicator"></span>
+            </div>
+
+            <div class="measurements">
+                <div>
+                    <span class="label">Stan</span>
+                    <strong id="status">Nieznany</strong>
+                </div>
+
+                <div>
+                    <span class="label">Pobór mocy</span>
+                    <strong><span id="power">—</span> W</strong>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="turn-on">Włącz</button>
+                <button id="turn-off">Wyłącz</button>
+                <button id="refresh">Odśwież</button>
+            </div>
+
+            <p id="error" role="alert"></p>
+        </section>
+
+        <footer>
+            <p>HTTP API · Shelly Simulator</p>
+        </footer>
+    </main>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>
