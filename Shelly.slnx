@@ -8,4 +8,7 @@
   <Folder Name="/03-Shelly.Mcp/">
     <Project Path="03-Shelly.Mcp/Shelly.Mcp.csproj" />
   </Folder>
+  <Folder Name="/04-Shelly.McpClient/">
+    <Project Path="04-Shelly.McpClient/Shelly.McpClient.csproj" />
+  </Folder>
 </Solution>
