@@ -23,6 +23,7 @@
   <Folder Name="/07-Shelly.Web/">
     <File Path="07-Shelly.Web/Caddyfile" />
     <File Path="07-Shelly.Web/index.html" />
+    <File Path="07-Shelly.Web/README.md" />
   </Folder>
   <Folder Name="/07-Shelly.Web/css/">
     <File Path="07-Shelly.Web/css/site.css" />
