@@ -39,6 +39,6 @@ GET /rpc/Switch.Set?id=0&on=false
 
 ## Co dalej?
 
-W kolejnym przykładzie, Shelly.ToolCalling, udostępnimy sterowanie lampką modelowi językowemu jako narzędzie.
+W kolejnym przykładzie, `Shelly.ToolCalling`, udostępnimy sterowanie lampką modelowi językowemu jako narzędzie.
 
 Model będzie mógł wybrać odpowiednią operację na podstawie polecenia użytkownika.
