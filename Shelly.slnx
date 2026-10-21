@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/00-Shelly.Simulator/">
+    <Project Path="00-Shelly.Simulator/Shelly.Simulator.csproj" />
+  </Folder>
   <Folder Name="/01-Shelly.Http/">
     <Project Path="01-Shelly.Http/Shelly.Http.csproj" />
   </Folder>
@@ -11,7 +14,10 @@
   <Folder Name="/04-Shelly.McpClient/">
     <Project Path="04-Shelly.McpClient/Shelly.McpClient.csproj" />
   </Folder>
-  <Folder Name="/05-Shelly.Simulator/">
-    <Project Path="05-Shelly.Simulator/Shelly.Simulator.csproj" />
+  <Folder Name="/05-Shelly.Agent/">
+    <Project Path="05-Shelly.Agent/Shelly.Agent.csproj" />
+  </Folder>
+  <Folder Name="/06-Shelly.CodeExecution/">
+    <Project Path="06-Shelly.CodeExecution/Shelly.CodeExecution.csproj" />
   </Folder>
 </Solution>
