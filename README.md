@@ -130,3 +130,14 @@ Repozytorium pokazuje, że budowanie agentów AI nie sprowadza się do wysyłani
 Istotne jest projektowanie narzędzi, komunikacja z otoczeniem, obserwacja rezultatów oraz kontrolowanie zachowania systemu.
 
 > **Tool Calling jest mechanizmem. Agentowość wynika ze sposobu wykorzystania narzędzi do realizacji celu.**
+
+## Autor
+© Marcin Sulecki 
+
+## Licencja
+
+Materiały dydaktyczne w tym repozytorium są udostępniane na licencji Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+Kod źródłowy przykładów jest udostępniany na licencji MIT.
+
+Materiały pochodzące z zewnętrznych źródeł podlegają licencjom i prawom ich odpowiednich autorów.
