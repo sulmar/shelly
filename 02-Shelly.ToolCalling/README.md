@@ -2,7 +2,7 @@
 
 Sterowanie inteligentnym gniazdkiem Shelly Plug S Gen3 za pomocą języka naturalnego, z wykorzystaniem **LLM i Tool Calling**.
 
-# Cel
+## Cel
 
 Demonstracja mechanizmu *Tool Calling*, w którym model językowy wybiera odpowiednią funkcję na podstawie polecenia użytkownika.
 
@@ -21,15 +21,16 @@ Decyzję o wyborze narzędzia podejmuje model językowy, natomiast wykonanie fun
 ## Instalacja
 
 1. Pobierz model językowy:
-```bash
-ollama pull qwen3:4b
-```
 
+   ```bash
+   ollama pull qwen3:4b
+   ```
 
 2. Uruchom Ollama:
-```
-ollama serve
-```
+
+   ```bash
+   ollama serve
+   ```
 
 Upewnij się, że serwer Ollama jest uruchomiony i dostępny pod adresem `http://localhost:11434`.
 
@@ -44,6 +45,7 @@ dotnet run --project 02-Shelly.ToolCalling -- http://172.20.10.2
 Adres IP należy zastąpić rzeczywistym adresem urządzenia Shelly.
 
 ## Przykładowa interakcja
+
 ```
 Connecting to Shelly at http://172.20.10.2
 Enter a command (or 'exit' to quit):
@@ -59,6 +61,7 @@ Assistant: Wyłączyłem lampkę.
 ## Jak to działa?
 
 Przepływ sterowania:
+
 ```
 Użytkownik
     |
@@ -95,14 +98,14 @@ sequenceDiagram
     App->>LLM: Wynik narzędzia
     LLM-->>App: "Włączyłem lampkę"
     App-->>User: Odpowiedź
-```    
-
+```
 
 Aplikacja udostępnia modelowi dwa narzędzia:
 
-Narzędzie	Działanie
-turn_on_light	Włącza lampkę
-turn_off_light	Wyłącza lampkę
+| Narzędzie        | Działanie      |
+|------------------|----------------|
+| `turn_on_light`  | Włącza lampkę  |
+| `turn_off_light` | Wyłącza lampkę |
 
 Narzędzia są rejestrowane za pomocą `AIFunctionFactory.Create()`.
 
