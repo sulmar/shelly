@@ -11,4 +11,7 @@
   <Folder Name="/04-Shelly.McpClient/">
     <Project Path="04-Shelly.McpClient/Shelly.McpClient.csproj" />
   </Folder>
+  <Folder Name="/05-Shelly.Simulator/">
+    <Project Path="05-Shelly.Simulator/Shelly.Simulator.csproj" />
+  </Folder>
 </Solution>
