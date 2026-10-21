@@ -1,32 +1,43 @@
-﻿if (args.Length == 0)
-{
-    Console.WriteLine("Usage: Shelly.Http <url>");
-    return;
-}
+﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
-var shellyUrl = args[0];
-
-Console.WriteLine($"Connecting to Shelly at {shellyUrl}");
+var shellyUrl = args.FirstOrDefault()
+                ?? throw new ArgumentException("Usage: Shelly.Http <url>");
 
 using var http = new HttpClient
 {
     BaseAddress = new Uri(shellyUrl)
 };
 
-// Turn on
-Console.WriteLine("Turning light on...");
+Console.WriteLine("Turning light ON...");
+await http.GetAsync("/rpc/Switch.Set?id=0&on=true");
 
-var response = await http.GetAsync("/rpc/Switch.Set?id=0&on=true");
-response.EnsureSuccessStatusCode();
-
-Console.WriteLine("Light is on.");
+await ShowStatus();
 
 await Task.Delay(2000);
 
-// Turn off
-Console.WriteLine("Turning light off...");
+Console.WriteLine("Turning light OFF...");
+await http.GetAsync("/rpc/Switch.Set?id=0&on=false");
 
-response = await http.GetAsync("/rpc/Switch.Set?id=0&on=false");
-response.EnsureSuccessStatusCode();
+await ShowStatus();
 
-Console.WriteLine("Light is off.");
+async Task ShowStatus()
+{
+    var status = await http.GetFromJsonAsync<LightStatus>(
+        "/rpc/Switch.GetStatus?id=0");
+
+    Console.WriteLine($"Light: {(status?.Output == true ? "ON" : "OFF")}");
+    Console.WriteLine($"Power: {status?.Power} W");
+    Console.WriteLine($"Temperature: {status?.Temperature?.Celsius} °C");
+    Console.WriteLine();
+}
+
+public record LightStatus(
+    [property: JsonPropertyName("output")] bool Output,
+    [property: JsonPropertyName("apower")] double Power,
+    [property: JsonPropertyName("temperature")] DeviceTemperature? Temperature
+);
+
+public record DeviceTemperature(
+    [property: JsonPropertyName("tC")] double Celsius
+);
