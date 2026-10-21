@@ -50,7 +50,7 @@ var tools = new[]
 // LLM
 IChatClient client = new OllamaApiClient(
     new Uri("http://localhost:11434"),
-    "qwen3:4b");
+    "qwen2.5:3b");
 
 // Automatic tool calling
 IChatClient chatClient = new ChatClientBuilder(client)
