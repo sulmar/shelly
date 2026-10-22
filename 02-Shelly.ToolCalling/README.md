@@ -44,6 +44,14 @@ dotnet run --project 02-Shelly.ToolCalling -- http://172.20.10.2
 
 Adres IP należy zastąpić rzeczywistym adresem urządzenia Shelly.
 
+
+Możesz również użyć nazwy mDNS urządzenia, jeśli ją znasz. Dzięki temu nie musisz martwić się o zmieniający się adres IP.
+```
+dotnet run --project 02-Shelly.ToolCalling -- http://shellyplugsg3-e4b063fe411c.local
+```
+
+Rozpoznawanie nazw mDNS wymaga obsługi tego protokołu w sieci i systemie operacyjnym. macOS obsługuje mDNS za pośrednictwem usługi Bonjour, natomiast Windows 10 i 11 oferują obsługę mDNS, której działanie może zależeć od konfiguracji systemu.
+
 ## Przykładowa interakcja
 
 ```
