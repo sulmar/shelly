@@ -2,7 +2,7 @@
 
 Przykłady aplikacji w **.NET / C#**, pokazujące kolejne etapy integracji dużych modeli językowych (LLM) z rzeczywistymi urządzeniami.
 
-Na przykładzie inteligentnego gniazdka **Shelly Plug S Gen3** poznajemy mechanizmy Tool Calling, MCP, agentów AI oraz Code Execution.
+Na przykładzie inteligentnego gniazdka **Shelly Plug S Gen3** poznajemy mechanizmy Tool Calling, MCP, agentów AI, Human-in-the-loop oraz Code Execution.
 
 **Od prostego wywołania HTTP do agenta, który samodzielnie podejmuje działania w środowisku.**
 
@@ -18,11 +18,12 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [03-Shelly.Mcp](./03-Shelly.Mcp) | MCP Server | Udostępnia funkcje sterowania Shelly jako narzędzia protokołu MCP. |
 | [04-Shelly.McpClient](./04-Shelly.McpClient) | MCP Client | Model odkrywa i wykorzystuje narzędzia udostępniane przez serwer MCP. |
 | [05-Shelly.Agent](./05-Shelly.Agent) | Agent AI | Agent dobiera kolejne działania, obserwuje stan urządzenia i weryfikuje rezultat. |
-| [06-Shelly.CodeExecution](./06-Shelly.CodeExecution) | Code Execution | Agent generuje kod Pythona i wykonuje go w kontenerze Docker. |
+| [06-Shelly.HumanInTheLoop](./06-Shelly.HumanInTheLoop) | Human-in-the-loop | Operacje zmieniające stan urządzenia wymagają zgody użytkownika. |
+| [07-Shelly.CodeExecution](./07-Shelly.CodeExecution) | Code Execution | Agent generuje kod Pythona i wykonuje go w kontenerze Docker. |
 
 ### Ścieżka rozwoju
 
-**HTTP → Tool Calling → MCP → Agent AI → Code Execution**
+**HTTP → Tool Calling → MCP → Agent AI → Human-in-the-loop → Code Execution**
 
 Każdy kolejny przykład wprowadza nowe możliwości, zachowując wspólny kontekst sterowania lampką Shelly.
 
@@ -136,7 +137,7 @@ Modele językowe mogą popełniać błędy, wybierać niewłaściwe narzędzia l
 W szczególności:
 
 - Nie należy zakładać, że odpowiedź modelu potwierdza rzeczywiste wykonanie operacji.
-- Działania zmieniające stan urządzeń powinny podlegać kontroli uprawnień.
+- Działania zmieniające stan urządzeń powinny podlegać kontroli uprawnień (zob. [06-Shelly.HumanInTheLoop](./06-Shelly.HumanInTheLoop)).
 - Kod generowany przez LLM należy traktować jako niezaufany.
 - Kontener Docker z przykładu Code Execution nie stanowi w pełni zabezpieczonego środowiska uruchomieniowego.
 

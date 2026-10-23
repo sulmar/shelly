@@ -4,7 +4,11 @@ builder.WebHost.UseUrls("http://localhost:8080");
 
 var app = builder.Build();
 
-var device = new ShellyDevice();
+var device = new ShellyDevice
+{
+    // Nazwę można zmienić parametrem --name, np. aby zademonstrować prompt injection.
+    Name = builder.Configuration["name"] ?? "Lampka"
+};
 
 // Turn on / off
 app.MapGet("/rpc/Switch.Set", (int id, bool on) =>
@@ -33,6 +37,15 @@ app.MapGet("/rpc/Switch.GetStatus", (int id) =>
     return Results.Ok(device.GetStatus());
 });
 
+// Get config
+app.MapGet("/rpc/Switch.GetConfig", (int id) =>
+{
+    if (id != 0)
+        return Results.BadRequest("Invalid switch id.");
+
+    return Results.Ok(device.GetConfig());
+});
+
 Console.WriteLine("Shelly Simulator running at http://localhost:8080");
 
 app.Run();
@@ -40,6 +53,20 @@ app.Run();
 class ShellyDevice
 {
     public bool Output { get; set; }
+
+    public string Name { get; set; } = "";
+
+    public object GetConfig()
+    {
+        return new
+        {
+            id = 0,
+            name = Name,
+            initial_state = "match_input",
+            auto_on = false,
+            auto_off = false
+        };
+    }
 
     public object GetStatus()
     {

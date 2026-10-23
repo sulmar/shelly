@@ -1,4 +1,4 @@
-# 06 — Shelly Code Execution
+# 07 — Shelly Code Execution
 
 ## Cel
 
@@ -121,7 +121,7 @@ curl -s "http://localhost:8080/rpc/Switch.Set?id=0&on=true"
 W drugim terminalu:
 
 ```bash
-dotnet run --project 06-Shelly.CodeExecution -- http://localhost:8080
+dotnet run --project 07-Shelly.CodeExecution -- http://localhost:8080
 ```
 
 Możesz również wskazać adres rzeczywistego urządzenia Shelly.
@@ -134,14 +134,14 @@ Zamiast Ollamy możesz użyć dowolnego API zgodnego z OpenAI Chat Completions (
 
 ```bash
 export LLM_API_KEY=<YOUR_API_KEY>
-dotnet run --project 06-Shelly.CodeExecution -- http://localhost:8080 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
+dotnet run --project 07-Shelly.CodeExecution -- http://localhost:8080 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
 ```
 
 PowerShell:
 
 ```powershell
 $env:LLM_API_KEY="<YOUR_API_KEY>"
-dotnet run --project 06-Shelly.CodeExecution -- http://localhost:8080 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
+dotnet run --project 07-Shelly.CodeExecution -- http://localhost:8080 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
 ```
 
 Serwer musi obsługiwać pole `tools`, aby działał Tool Calling.

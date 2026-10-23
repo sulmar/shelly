@@ -1,4 +1,4 @@
-# 07 — Shelly Web
+# 08 — Shelly Web
 
 ## Cel
 
@@ -15,7 +15,7 @@ Strona pozwala:
 ```mermaid
 flowchart LR
     Browser["Przeglądarka<br/>index.html + js"] --> Caddy["Caddy<br/>localhost:5070"]
-    Caddy -->|"/*"| Files["Pliki statyczne<br/>07-Shelly.Web"]
+    Caddy -->|"/*"| Files["Pliki statyczne<br/>08-Shelly.Web"]
     Caddy -->|"/rpc/*"| Shelly["Shelly API<br/>Symulator localhost:8080<br/>lub urządzenie"]
 ```
 
@@ -56,10 +56,10 @@ dotnet run --project 00-Shelly.Simulator
 
 ### 2. Uruchom Caddy
 
-W drugim terminalu, **z katalogu `07-Shelly.Web`** (Caddyfile serwuje pliki z bieżącego katalogu):
+W drugim terminalu, **z katalogu `08-Shelly.Web`** (Caddyfile serwuje pliki z bieżącego katalogu):
 
 ```bash
-cd 07-Shelly.Web
+cd 08-Shelly.Web
 caddy run
 ```
 

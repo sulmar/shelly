@@ -2,7 +2,7 @@
 
 Prosty symulator **Shelly Plug S Gen3** udostępniający wybrane endpointy HTTP RPC.
 
-Umożliwia uruchamianie projektów 01–06 bez fizycznego urządzenia Shelly.
+Umożliwia uruchamianie projektów 01–07 bez fizycznego urządzenia Shelly.
 
 ## Uruchomienie
 
@@ -25,6 +25,7 @@ http://localhost:8080
 | Włącz lampkę  | `/rpc/Switch.Set?id=0&on=true`  |
 | Wyłącz lampkę | `/rpc/Switch.Set?id=0&on=false` |
 | Odczytaj stan | `/rpc/Switch.GetStatus?id=0`    |
+| Odczytaj konfigurację | `/rpc/Switch.GetConfig?id=0` |
 
 ## Przykłady użycia
 
@@ -62,6 +63,18 @@ Przykładowa odpowiedź:
     "tC": 32.5
   }
 }
+```
+
+### Odczyt konfiguracji
+
+```bash
+curl -s "http://localhost:8080/rpc/Switch.GetConfig?id=0" | jq
+```
+
+Nazwę urządzenia zwracaną w polu `name` można ustawić parametrem `--name` (domyślnie `Lampka`):
+
+```bash
+dotnet run --project 00-Shelly.Simulator -- --name "Lampka w salonie"
 ```
 
 ### Odczyt wybranych parametrów
@@ -112,13 +125,19 @@ dotnet run --project 04-Shelly.McpClient -- http://localhost:8080
 dotnet run --project 05-Shelly.Agent -- http://localhost:8080
 ```
 
-### 06 — Code Execution
+### 06 — Human-in-the-loop
 
 ```bash
-dotnet run --project 06-Shelly.CodeExecution -- http://localhost:8080
+dotnet run --project 06-Shelly.HumanInTheLoop -- http://localhost:8080
 ```
 
-> **Uwaga:** Projekty 02 i 04 wymagają uruchomionej [Ollama](https://ollama.com) z modelem `qwen2.5:3b`, a projekty 05 i 06 — z modelem `qwen3:8b`. Projekt 06 wymaga dodatkowo uruchomionego Dockera.
+### 07 — Code Execution
+
+```bash
+dotnet run --project 07-Shelly.CodeExecution -- http://localhost:8080
+```
+
+> **Uwaga:** Projekty 02 i 04 wymagają uruchomionej [Ollama](https://ollama.com) z modelem `qwen2.5:3b`, a projekty 05, 06 i 07 — z modelem `qwen3:8b`. Projekt 07 wymaga dodatkowo uruchomionego Dockera.
 
 ## Symulator a rzeczywiste Shelly
 
