@@ -63,16 +63,29 @@ Włączenie lampki:
 curl -s "http://localhost:8080/rpc/Switch.Set?id=0&on=true"
 ```
 
+```powershell
+iwr "http://localhost:8080/rpc/Switch.Set?id=0&on=true"
+```
+
 Odczyt stanu:
 
 ```bash
 curl -s "http://localhost:8080/rpc/Switch.GetStatus?id=0"
 ```
 
+```powershell
+iwr "http://localhost:8080/rpc/Switch.GetStatus?id=0"
+```
+
+
 Wyłączenie lampki:
 
 ```bash
-curl -s "http://localhost:8080/rpc/Switch.Set?id=0&on=false"
+curl -s powershell
+```
+
+```powershell
+iwr powershell
 ```
 
 ### 3. Uruchom wybrany przykład
