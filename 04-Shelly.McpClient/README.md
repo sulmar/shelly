@@ -94,8 +94,8 @@ Przykładowa sesja:
 
 ```text
 Connecting to Shelly at http://172.20.10.2
-[MCP] Discovered tool: TurnOnLight
-[MCP] Discovered tool: TurnOffLight
+[MCP] Discovered tool: turn_on_light
+[MCP] Discovered tool: turn_off_light
 Enter a command (or 'exit' to quit):
 > Zapal lampkę
 Assistant: Włączyłem lampkę.
@@ -118,14 +118,14 @@ sequenceDiagram
 
     Note over App,MCP: Odkrywanie narzędzi przez MCP
     App->>MCP: tools/list
-    MCP-->>App: TurnOnLight, TurnOffLight
+    MCP-->>App: turn_on_light, turn_off_light
 
     User->>App: "Zapal lampkę"
     App->>LLM: Polecenie + definicje narzędzi
-    LLM-->>App: TurnOnLight()
+    LLM-->>App: turn_on_light()
 
     Note over App,MCP: Wywołanie narzędzia przez MCP
-    App->>MCP: tools/call TurnOnLight
+    App->>MCP: tools/call turn_on_light
     MCP->>Device: HTTP RPC
     Device-->>MCP: Wynik operacji
     MCP-->>App: Wynik narzędzia
@@ -199,7 +199,7 @@ IChatClient chatClient = new ChatClientBuilder(client)
 
 `UseFunctionInvocation()` obsługuje wywołania narzędzi wybrane przez model.
 
-Gdy Qwen wybierze `TurnOnLight`, aplikacja automatycznie wywołuje odpowiednie narzędzie przez klienta MCP i przekazuje wynik z powrotem do modelu.
+Gdy Qwen wybierze `turn_on_light`, aplikacja automatycznie wywołuje odpowiednie narzędzie przez klienta MCP i przekazuje wynik z powrotem do modelu.
 
 ### 5. Pamięć rozmowy
 

@@ -15,7 +15,7 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [00-Shelly.Simulator](./00-Shelly.Simulator) | Symulator | Symuluje urządzenie Shelly i udostępnia jego API HTTP. |
 | [01-Shelly.Http](./01-Shelly.Http) | HTTP API | Bezpośrednie sterowanie urządzeniem Shelly z aplikacji .NET. |
 | [02-Shelly.ToolCalling](./02-Shelly.ToolCalling) | Tool Calling | Model LLM wybiera i wywołuje funkcje sterujące urządzeniem. |
-| [03-Shelly.Mcp](./03-Shelly.Mcp) | MCP Server | Udostępnia funkcje sterowania Shelly jako narzędzia protokołu MCP. |
+| [03-Shelly.Mcp](./03-Shelly.Mcp) | MCP Server | Udostępnia sterowanie Shelly przez MCP: narzędzia (tools), zasoby (resources) i szablony poleceń (prompts). |
 | [04-Shelly.McpClient](./04-Shelly.McpClient) | MCP Client | Model odkrywa i wykorzystuje narzędzia udostępniane przez serwer MCP. |
 | [05-Shelly.Agent](./05-Shelly.Agent) | Agent AI | Agent dobiera kolejne działania, obserwuje stan urządzenia i weryfikuje rezultat. |
 | [06-Shelly.HumanInTheLoop](./06-Shelly.HumanInTheLoop) | Human-in-the-loop | Operacje zmieniające stan urządzenia wymagają zgody użytkownika. |
