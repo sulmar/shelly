@@ -24,6 +24,7 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [09-Shelly.Observability](./09-Shelly.Observability) | Obserwowalność | Ślady i metryki agenta (OpenTelemetry) w Aspire Dashboard. |
 | [10-Shelly.Evaluation](./10-Shelly.Evaluation) | Ewaluacja | Testy agenta z Microsoft.Extensions.AI.Evaluation i modelem-sędzią. |
 | [11-Shelly.A2A](./11-Shelly.A2A) | Agent2Agent | Dwa agenty (Microsoft Agent Framework) współpracujące przez protokół A2A. |
+| [12-Shelly.StructuredOutput](./12-Shelly.StructuredOutput) | Structured Output | Model zamienia polecenie na obiekt C#, a aplikacja sama je wykonuje. Alternatywa dla Tool Calling. |
 
 ### Ścieżka rozwoju
 

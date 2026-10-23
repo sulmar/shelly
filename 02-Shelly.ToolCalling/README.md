@@ -171,6 +171,8 @@ Spróbuj wydać następujące polecenia:
 
 Zwróć uwagę, kiedy model wybiera narzędzie, a kiedy odpowiada bez jego użycia.
 
+Alternatywne podejście, w którym model nie wywołuje funkcji, tylko zwraca dane, a decyzję podejmuje aplikacja, pokazuje projekt [`12-Shelly.StructuredOutput`](../12-Shelly.StructuredOutput).
+
 ## Co dalej?
 
 W kolejnym projekcie, `Shelly.Mcp`, udostępnimy te same operacje za pomocą **Model Context Protocol (MCP)**.

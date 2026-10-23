@@ -46,4 +46,7 @@
     <Project Path="11-Shelly.A2A/Shelly.A2A.Client/Shelly.A2A.Client.csproj" />
     <Project Path="11-Shelly.A2A/Shelly.A2A.Server/Shelly.A2A.Server.csproj" />
   </Folder>
+  <Folder Name="/12-Shelly.StructuredOutput/">
+    <Project Path="12-Shelly.StructuredOutput/Shelly.StructuredOutput.csproj" />
+  </Folder>
 </Solution>
