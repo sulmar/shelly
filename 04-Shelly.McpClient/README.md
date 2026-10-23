@@ -59,6 +59,26 @@ Adres IP należy zastąpić rzeczywistym adresem urządzenia Shelly.
 
 Aplikacja automatycznie uruchamia serwer `03-Shelly.Mcp` jako proces potomny i komunikuje się z nim przez transport *stdio*.
 
+### Wybór modelu i zdalne API
+
+Domyślnie używany jest lokalny model `qwen2.5:3b` z Ollamy. Inny model wskażesz parametrem `--model`.
+
+Zamiast Ollamy możesz użyć dowolnego API zgodnego z OpenAI Chat Completions (np. `https://llm.hpc.psnc.pl/v1`). Adres podaj parametrem `--endpoint`, a klucz API w zmiennej środowiskowej `LLM_API_KEY`:
+
+```bash
+export LLM_API_KEY=<YOUR_API_KEY>
+dotnet run --project 04-Shelly.McpClient -- http://172.20.10.2 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
+```
+
+PowerShell:
+
+```powershell
+$env:LLM_API_KEY="<YOUR_API_KEY>"
+dotnet run --project 04-Shelly.McpClient -- http://172.20.10.2 --endpoint https://llm.hpc.psnc.pl/v1 --model DeepSeek-V3.1
+```
+
+Serwer musi obsługiwać pole `tools`, aby działał Tool Calling.
+
 Nie trzeba osobno uruchamiać serwera MCP.
 
 > **Uwaga:** Przykładowa implementacja wykorzystuje względną ścieżkę `03-Shelly.Mcp`, dlatego aplikację należy uruchamiać z katalogu głównego Shelly.

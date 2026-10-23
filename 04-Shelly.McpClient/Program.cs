@@ -1,14 +1,43 @@
 ﻿using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
 using OllamaSharp;
+using OpenAI;
+using System.ClientModel;
 
-if (args.Length == 0)
+const string DefaultModel = "qwen2.5:3b";
+
+string? shellyUrl = null;
+string? endpoint = null;
+var model = DefaultModel;
+
+for (var i = 0; i < args.Length; i++)
 {
-    Console.WriteLine("Usage: Shelly.McpClient <url>");
+    if (args[i] == "--model" && i + 1 < args.Length)
+        model = args[++i];
+    else if (args[i].StartsWith("--model="))
+        model = args[i]["--model=".Length..];
+    else if (args[i] == "--endpoint" && i + 1 < args.Length)
+        endpoint = args[++i];
+    else if (args[i].StartsWith("--endpoint="))
+        endpoint = args[i]["--endpoint=".Length..];
+    else
+        shellyUrl ??= args[i];
+}
+
+if (shellyUrl is null)
+{
+    Console.WriteLine($"Usage: Shelly.McpClient <url> [--model <name>] [--endpoint <url>] (default model: {DefaultModel})");
     return;
 }
 
-var shellyUrl = args[0];
+// Klucz API dla zdalnego endpointu czytamy ze zmiennej środowiskowej, aby nie trafił do historii poleceń.
+var apiKey = Environment.GetEnvironmentVariable("LLM_API_KEY");
+
+if (endpoint is not null && string.IsNullOrEmpty(apiKey))
+{
+    Console.WriteLine("Set the LLM_API_KEY environment variable to use --endpoint.");
+    return;
+}
 
 Console.WriteLine($"Connecting to Shelly at {shellyUrl}");
 
@@ -37,9 +66,16 @@ foreach (var tool in tools)
 }
 
 // LLM
-IChatClient client = new OllamaApiClient(
-    new Uri("http://localhost:11434"),
-    "qwen2.5:3b");
+// Bez --endpoint używamy lokalnej Ollamy, w przeciwnym razie dowolnego API zgodnego z OpenAI (np. https://llm.hpc.psnc.pl/v1).
+IChatClient client = endpoint is null
+    ? new OllamaApiClient(
+        new Uri("http://localhost:11434"),
+        model)
+    : new OpenAIClient(
+        new ApiKeyCredential(apiKey!),
+        new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
+        .GetChatClient(model)
+        .AsIChatClient();
 
 // Automatic tool calling
 IChatClient chatClient = new ChatClientBuilder(client)

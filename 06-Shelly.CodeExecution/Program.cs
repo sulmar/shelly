@@ -4,19 +4,59 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.AI;
 using OllamaSharp;
+using OpenAI;
+using System.ClientModel;
 
-var shellyUrl = args.FirstOrDefault()
-    ?? throw new ArgumentException(
-        "Usage: Shelly.CodeExecution <shelly-url>");
+const string DefaultModel = "qwen3:8b";
+
+string? shellyUrl = null;
+string? endpoint = null;
+var model = DefaultModel;
+
+for (var i = 0; i < args.Length; i++)
+{
+    if (args[i] == "--model" && i + 1 < args.Length)
+        model = args[++i];
+    else if (args[i].StartsWith("--model="))
+        model = args[i]["--model=".Length..];
+    else if (args[i] == "--endpoint" && i + 1 < args.Length)
+        endpoint = args[++i];
+    else if (args[i].StartsWith("--endpoint="))
+        endpoint = args[i]["--endpoint=".Length..];
+    else
+        shellyUrl ??= args[i];
+}
+
+if (shellyUrl is null)
+{
+    Console.WriteLine($"Usage: Shelly.CodeExecution <url> [--model <name>] [--endpoint <url>] (default model: {DefaultModel})");
+    return;
+}
+
+// Klucz API dla zdalnego endpointu czytamy ze zmiennej środowiskowej, aby nie trafił do historii poleceń.
+var apiKey = Environment.GetEnvironmentVariable("LLM_API_KEY");
+
+if (endpoint is not null && string.IsNullOrEmpty(apiKey))
+{
+    Console.WriteLine("Set the LLM_API_KEY environment variable to use --endpoint.");
+    return;
+}
 
 using var http = new HttpClient
 {
     BaseAddress = new Uri(shellyUrl)
 };
 
-IChatClient client = new OllamaApiClient(
-    new Uri("http://localhost:11434"),
-    "qwen3:8b");
+// Bez --endpoint używamy lokalnej Ollamy, w przeciwnym razie dowolnego API zgodnego z OpenAI (np. https://llm.hpc.psnc.pl/v1).
+IChatClient client = endpoint is null
+    ? new OllamaApiClient(
+        new Uri("http://localhost:11434"),
+        model)
+    : new OpenAIClient(
+        new ApiKeyCredential(apiKey!),
+        new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
+        .GetChatClient(model)
+        .AsIChatClient();
 
 IChatClient chatClient = new ChatClientBuilder(client)
     .UseFunctionInvocation()
