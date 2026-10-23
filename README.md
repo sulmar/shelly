@@ -23,6 +23,7 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [08-Shelly.Web](./08-Shelly.Web) | Web | Sterowanie lampką z przeglądarki (HTML, CSS, JavaScript). |
 | [09-Shelly.Observability](./09-Shelly.Observability) | Obserwowalność | Ślady i metryki agenta (OpenTelemetry) w Aspire Dashboard. |
 | [10-Shelly.Evaluation](./10-Shelly.Evaluation) | Ewaluacja | Testy agenta z Microsoft.Extensions.AI.Evaluation i modelem-sędzią. |
+| [11-Shelly.A2A](./11-Shelly.A2A) | Agent2Agent | Dwa agenty (Microsoft Agent Framework) współpracujące przez protokół A2A. |
 
 ### Ścieżka rozwoju
 
@@ -131,6 +132,7 @@ Adres IP należy dostosować do własnej sieci.
 - **Testcontainers / Docker** — wykonywanie kodu wygenerowanego przez model
 - **OpenTelemetry / Aspire Dashboard** — obserwowalność agenta
 - **Microsoft.Extensions.AI.Evaluation** — ewaluacja i testy agenta
+- **Microsoft Agent Framework / A2A** — agenty współpracujące przez protokół Agent2Agent
 - **Shelly RPC API** — komunikacja z urządzeniem
 
 ## Bezpieczeństwo
