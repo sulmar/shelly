@@ -20,6 +20,8 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [05-Shelly.Agent](./05-Shelly.Agent) | Agent AI | Agent dobiera kolejne działania, obserwuje stan urządzenia i weryfikuje rezultat. |
 | [06-Shelly.HumanInTheLoop](./06-Shelly.HumanInTheLoop) | Human-in-the-loop | Operacje zmieniające stan urządzenia wymagają zgody użytkownika. |
 | [07-Shelly.CodeExecution](./07-Shelly.CodeExecution) | Code Execution | Agent generuje kod Pythona i wykonuje go w kontenerze Docker. |
+| [08-Shelly.Web](./08-Shelly.Web) | Web | Sterowanie lampką z przeglądarki (HTML, CSS, JavaScript). |
+| [09-Shelly.Observability](./09-Shelly.Observability) | Obserwowalność | Ślady i metryki agenta (OpenTelemetry) w Aspire Dashboard. |
 
 ### Ścieżka rozwoju
 
@@ -126,6 +128,7 @@ Adres IP należy dostosować do własnej sieci.
 - **Ollama** — lokalne uruchamianie modeli
 - **Model Context Protocol (MCP)** — udostępnianie i odkrywanie narzędzi
 - **Testcontainers / Docker** — wykonywanie kodu wygenerowanego przez model
+- **OpenTelemetry / Aspire Dashboard** — obserwowalność agenta
 - **Shelly RPC API** — komunikacja z urządzeniem
 
 ## Bezpieczeństwo

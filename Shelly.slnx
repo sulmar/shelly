@@ -35,4 +35,7 @@
     <File Path="08-Shelly.Web/js/app.js" />
     <File Path="08-Shelly.Web/js/shelly.js" />
   </Folder>
+  <Folder Name="/09-Shelly.Observability/">
+    <Project Path="09-Shelly.Observability/Shelly.Observability.csproj" />
+  </Folder>
 </Solution>
