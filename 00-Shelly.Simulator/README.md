@@ -2,7 +2,7 @@
 
 Prosty symulator **Shelly Plug S Gen3** udostępniający wybrane endpointy HTTP RPC.
 
-Umożliwia uruchamianie projektów 01–12 bez fizycznego urządzenia Shelly.
+Umożliwia uruchamianie projektów 01–13 bez fizycznego urządzenia Shelly.
 
 ## Uruchomienie
 
@@ -156,7 +156,13 @@ dotnet run --project 11-Shelly.A2A/Shelly.A2A.Client
 dotnet run --project 12-Shelly.StructuredOutput -- http://localhost:8080
 ```
 
-> **Uwaga:** Projekty 02, 04 i 12 wymagają uruchomionej [Ollama](https://ollama.com) z modelem `qwen2.5:3b`, a projekty 05, 06, 07, 09 i 11 — z modelem `qwen3:8b`. Projekty 07 i 09 wymagają dodatkowo uruchomionego Dockera.
+### 13 — Skills
+
+```bash
+dotnet run --project 13-Shelly.Skills -- http://localhost:8080
+```
+
+> **Uwaga:** Projekty 02, 04 i 12 wymagają uruchomionej [Ollama](https://ollama.com) z modelem `qwen2.5:3b`, a projekty 05, 06, 07, 09, 11 i 13 — z modelem `qwen3:8b`. Projekty 07 i 09 wymagają dodatkowo uruchomionego Dockera.
 
 ## Symulator a rzeczywiste Shelly
 

@@ -49,4 +49,7 @@
   <Folder Name="/12-Shelly.StructuredOutput/">
     <Project Path="12-Shelly.StructuredOutput/Shelly.StructuredOutput.csproj" />
   </Folder>
+  <Folder Name="/13-Shelly.Skills/">
+    <Project Path="13-Shelly.Skills/Shelly.Skills.csproj" />
+  </Folder>
 </Solution>

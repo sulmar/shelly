@@ -25,6 +25,7 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [10-Shelly.Evaluation](./10-Shelly.Evaluation) | Ewaluacja | Testy agenta z Microsoft.Extensions.AI.Evaluation i modelem-sędzią. |
 | [11-Shelly.A2A](./11-Shelly.A2A) | Agent2Agent | Dwa agenty (Microsoft Agent Framework) współpracujące przez protokół A2A. |
 | [12-Shelly.StructuredOutput](./12-Shelly.StructuredOutput) | Structured Output | Model zamienia polecenie na obiekt C#, a aplikacja sama je wykonuje. Alternatywa dla Tool Calling. |
+| [13-Shelly.Skills](./13-Shelly.Skills) | Agent Skills | Agent ładuje procedury i wiedzę dziedzinową z plików `SKILL.md` na żądanie. |
 
 ### Ścieżka rozwoju
 
