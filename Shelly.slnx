@@ -38,4 +38,7 @@
   <Folder Name="/09-Shelly.Observability/">
     <Project Path="09-Shelly.Observability/Shelly.Observability.csproj" />
   </Folder>
+  <Folder Name="/10-Shelly.Evaluation/">
+    <Project Path="10-Shelly.Evaluation/Shelly.Evaluation.csproj" />
+  </Folder>
 </Solution>

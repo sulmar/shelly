@@ -22,6 +22,7 @@ Repozytorium zawiera zestaw niezależnych aplikacji demonstracyjnych. Wszystkie 
 | [07-Shelly.CodeExecution](./07-Shelly.CodeExecution) | Code Execution | Agent generuje kod Pythona i wykonuje go w kontenerze Docker. |
 | [08-Shelly.Web](./08-Shelly.Web) | Web | Sterowanie lampką z przeglądarki (HTML, CSS, JavaScript). |
 | [09-Shelly.Observability](./09-Shelly.Observability) | Obserwowalność | Ślady i metryki agenta (OpenTelemetry) w Aspire Dashboard. |
+| [10-Shelly.Evaluation](./10-Shelly.Evaluation) | Ewaluacja | Testy agenta z Microsoft.Extensions.AI.Evaluation i modelem-sędzią. |
 
 ### Ścieżka rozwoju
 
@@ -129,6 +130,7 @@ Adres IP należy dostosować do własnej sieci.
 - **Model Context Protocol (MCP)** — udostępnianie i odkrywanie narzędzi
 - **Testcontainers / Docker** — wykonywanie kodu wygenerowanego przez model
 - **OpenTelemetry / Aspire Dashboard** — obserwowalność agenta
+- **Microsoft.Extensions.AI.Evaluation** — ewaluacja i testy agenta
 - **Shelly RPC API** — komunikacja z urządzeniem
 
 ## Bezpieczeństwo

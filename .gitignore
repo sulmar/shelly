@@ -480,3 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Wyniki ewaluacji Shelly.Evaluation
+10-Shelly.Evaluation/eval-results/
+10-Shelly.Evaluation/report.html
