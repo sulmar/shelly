@@ -1,15 +1,29 @@
 ﻿using Microsoft.Extensions.AI;
 using OllamaSharp;
 
-if (args.Length == 0)
+const string DefaultModel = "qwen2.5:3b";
+
+string? shellyUrl = null;
+var model = DefaultModel;
+
+for (var i = 0; i < args.Length; i++)
 {
-    Console.WriteLine("Usage: Shelly.ToolCalling <url>");
+    if (args[i] == "--model" && i + 1 < args.Length)
+        model = args[++i];
+    else if (args[i].StartsWith("--model="))
+        model = args[i]["--model=".Length..];
+    else
+        shellyUrl ??= args[i];
+}
+
+if (shellyUrl is null)
+{
+    Console.WriteLine($"Usage: Shelly.ToolCalling <url> [--model <name>] (default model: {DefaultModel})");
     return;
 }
 
-var shellyUrl = args[0];
-
 Console.WriteLine($"Connecting to Shelly at {shellyUrl}");
+Console.WriteLine($"Using model {model}");
 
 using var http = new HttpClient
 {
@@ -50,7 +64,7 @@ var tools = new[]
 // LLM
 IChatClient client = new OllamaApiClient(
     new Uri("http://localhost:11434"),
-    "qwen2.5:3b");
+    model);
 
 // Automatic tool calling
 IChatClient chatClient = new ChatClientBuilder(client)

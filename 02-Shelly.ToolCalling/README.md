@@ -14,7 +14,7 @@ Decyzję o wyborze narzędzia podejmuje model językowy, natomiast wykonanie fun
 
 * .NET SDK
 * Ollama
-* Model qwen3:4b
+* Model qwen2.5:3b
 * Shelly Plug S Gen3
 * Komputer i Shelly podłączone do tej samej sieci Wi-Fi
 
@@ -23,7 +23,7 @@ Decyzję o wyborze narzędzia podejmuje model językowy, natomiast wykonanie fun
 1. Pobierz model językowy:
 
    ```bash
-   ollama pull qwen3:4b
+   ollama pull qwen2.5:3b
    ```
 
 2. Uruchom Ollama:
@@ -51,6 +51,16 @@ dotnet run --project 02-Shelly.ToolCalling -- http://shellyplugsg3-e4b063fe411c.
 ```
 
 Rozpoznawanie nazw mDNS wymaga obsługi tego protokołu w sieci i systemie operacyjnym. macOS obsługuje mDNS za pośrednictwem usługi Bonjour, natomiast Windows 10 i 11 oferują obsługę mDNS, której działanie może zależeć od konfiguracji systemu.
+
+### Wybór modelu
+
+Domyślnie używany jest model `qwen2.5:3b`. Inny model możesz wskazać parametrem `--model`:
+
+```bash
+dotnet run --project 02-Shelly.ToolCalling -- http://172.20.10.2 --model qwen3:4b
+```
+
+Model musi być wcześniej pobrany poleceniem `ollama pull` i obsługiwać Tool Calling.
 
 ## Przykładowa interakcja
 
