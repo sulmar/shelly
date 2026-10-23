@@ -58,34 +58,38 @@ Symulator udostępnia API Shelly pod adresem:
 ### 2. Sprawdź działanie API
 
 Włączenie lampki:
-
+- Bash
 ```bash
 curl -s "http://localhost:8080/rpc/Switch.Set?id=0&on=true"
 ```
 
+- PowerShell
 ```powershell
 iwr "http://localhost:8080/rpc/Switch.Set?id=0&on=true"
 ```
 
 Odczyt stanu:
 
+- Bash
 ```bash
 curl -s "http://localhost:8080/rpc/Switch.GetStatus?id=0"
 ```
 
+- PowerShell
 ```powershell
 iwr "http://localhost:8080/rpc/Switch.GetStatus?id=0"
 ```
 
 
 Wyłączenie lampki:
-
+- Bash
 ```bash
-curl -s powershell
+curl -s "http://localhost:8080/rpc/Switch.Set?id=0&on=false"
 ```
 
+- PowerShell
 ```powershell
-iwr powershell
+iwr "http://localhost:8080/rpc/Switch.Set?id=0&on=false"
 ```
 
 ### 3. Uruchom wybrany przykład
