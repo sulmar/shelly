@@ -62,6 +62,21 @@ async Task TurnOffLight()
     response.EnsureSuccessStatusCode();
 }
 
+// Sprawdzenie czy model jest pobrany lokalnie
+// ShowModelAsync wywołuje endpoint Ollamy POST /api/show (to samo co `ollama show`), który dla nieznanego modelu zwraca 404.
+static async Task<bool> ModelExistsAsync(OllamaApiClient ollama, string model, CancellationToken cancellationToken = default)
+{
+    try
+    {
+        await ollama.ShowModelAsync(model, cancellationToken);
+        return true;
+    }
+    catch (HttpRequestException e) when (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+    {
+        return false;
+    }
+}
+
 // Tools
 // Udostępniamy modelowi dwie funkcje wraz z opisami.
 var tools = new[]
@@ -69,7 +84,7 @@ var tools = new[]
     AIFunctionFactory.Create(
         TurnOnLight,
         name: "turn_on_light",
-        description: "Turns on the light"), 
+        description: "Turns on the light"),
 
     AIFunctionFactory.Create(
         TurnOffLight,
@@ -79,15 +94,37 @@ var tools = new[]
 
 // LLM
 // Bez --endpoint używamy lokalnej Ollamy, w przeciwnym razie dowolnego API zgodnego z OpenAI (np. https://llm.hpc.psnc.pl/v1).
-IChatClient client = endpoint is null
-    ? new OllamaApiClient(
-        new Uri("http://localhost:11434"),
-        model)
-    : new OpenAIClient(
-        new ApiKeyCredential(apiKey!),
-        new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
+IChatClient client;
+
+if (endpoint is null)
+{
+    var ollama = new OllamaApiClient(new Uri("http://localhost:11434"), model);
+
+    if (!await ModelExistsAsync(ollama, model))
+    {
+        Console.WriteLine($"Model {model} not found. Run: ollama pull {model}");
+
+        // ListLocalModelsAsync wywołuje endpoint Ollamy GET /api/tags (to samo co `ollama list`).
+        var models = await ollama.ListLocalModelsAsync();
+
+        Console.WriteLine("Available models:");
+
+        foreach (var m in models)
+            Console.WriteLine($"  {m.Name}");
+
+        return;
+    }
+
+    client = ollama;
+}
+else
+{
+    client = new OpenAIClient(
+            new ApiKeyCredential(apiKey!),
+            new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
         .GetChatClient(model)
         .AsIChatClient();
+}
 
 // Automatic tool calling
 IChatClient chatClient = new ChatClientBuilder(client)
