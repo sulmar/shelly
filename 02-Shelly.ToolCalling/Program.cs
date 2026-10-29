@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.AI;
 using OllamaSharp;
+using OllamaSharp.Models;
 using OpenAI;
 using System.ClientModel;
 
@@ -62,17 +63,52 @@ async Task TurnOffLight()
     response.EnsureSuccessStatusCode();
 }
 
-// Sprawdzenie czy model jest pobrany lokalnie
-// ShowModelAsync wywołuje endpoint Ollamy POST /api/show (to samo co `ollama show`), który dla nieznanego modelu zwraca 404.
-static async Task<bool> ModelExistsAsync(OllamaApiClient ollama, string model, CancellationToken cancellationToken = default)
+// Sprawdzenie czy Ollama działa
+// IsRunningAsync wywołuje endpoint Ollamy GET / (odpowiada "Ollama is running").
+// Gdy serwer nie nasłuchuje, rzuca HttpRequestException zamiast zwrócić false, dlatego łapiemy wyjątek.
+static async Task<bool> OllamaIsRunningAsync(OllamaApiClient ollama, CancellationToken cancellationToken = default)
 {
     try
     {
-        await ollama.ShowModelAsync(model, cancellationToken);
-        return true;
+        return await ollama.IsRunningAsync(cancellationToken);
+    }
+    catch (HttpRequestException)
+    {
+        return false;
+    }
+}
+
+// Pobranie informacji o modelu lub null, gdy model nie jest pobrany lokalnie
+// ShowModelAsync wywołuje endpoint Ollamy POST /api/show (to samo co `ollama show`), który dla nieznanego modelu zwraca 404.
+static async Task<ShowModelResponse?> GetModelInfoAsync(OllamaApiClient ollama, string model, CancellationToken cancellationToken = default)
+{
+    try
+    {
+        return await ollama.ShowModelAsync(model, cancellationToken);
     }
     catch (HttpRequestException e) when (e.StatusCode == System.Net.HttpStatusCode.NotFound)
     {
+        return null;
+    }
+}
+
+// Pobranie modelu z rejestru Ollamy z raportowaniem postępu przez IProgress<T>
+// PullModelAsync wywołuje endpoint Ollamy POST /api/pull (to samo co `ollama pull`), który strumieniuje kolejne etapy pobierania.
+static async Task<bool> PullModelAsync(OllamaApiClient ollama, string model, IProgress<PullModelResponse>? progress = null, CancellationToken cancellationToken = default)
+{
+    try
+    {
+        await foreach (var response in ollama.PullModelAsync(model, cancellationToken))
+        {
+            if (response is not null)
+                progress?.Report(response);
+        }
+
+        return true;
+    }
+    catch (Exception e) when (e is HttpRequestException or OllamaSharp.Models.Exceptions.ResponseError)
+    {
+        Console.WriteLine($"Failed to download model {model}: {e.Message}");
         return false;
     }
 }
@@ -100,9 +136,22 @@ if (endpoint is null)
 {
     var ollama = new OllamaApiClient(new Uri("http://localhost:11434"), model);
 
-    if (!await ModelExistsAsync(ollama, model))
+    if (!await OllamaIsRunningAsync(ollama))
     {
-        Console.WriteLine($"Model {model} not found. Run: ollama pull {model}");
+        Console.WriteLine($"Ollama is not running at {ollama.Uri}. Run: ollama serve");
+        return;
+    }
+
+    // GetVersionAsync wywołuje endpoint Ollamy GET /api/version (to samo co `ollama --version`).
+    var version = await ollama.GetVersionAsync();
+
+    Console.WriteLine($"Ollama version: {version}");
+
+    var modelInfo = await GetModelInfoAsync(ollama, model);
+
+    if (modelInfo is null)
+    {
+        Console.WriteLine($"Model {model} not found.");
 
         // ListLocalModelsAsync wywołuje endpoint Ollamy GET /api/tags (to samo co `ollama list`).
         var models = await ollama.ListLocalModelsAsync();
@@ -112,8 +161,40 @@ if (endpoint is null)
         foreach (var m in models)
             Console.WriteLine($"  {m.Name}");
 
+        Console.Write($"Download model {model}? [y/N] ");
+
+        if (!string.Equals(Console.ReadLine()?.Trim(), "y", StringComparison.OrdinalIgnoreCase))
+            return;
+
+        if (!await PullModelAsync(ollama, model, new DockerPullProgress()))
+            return;
+
+        modelInfo = await GetModelInfoAsync(ollama, model);
+
+        if (modelInfo is null)
+        {
+            Console.WriteLine($"Model {model} is still not available.");
+            return;
+        }
+    }
+
+    // Capabilities pochodzą z odpowiedzi /api/show, np. completion, tools, vision.
+    // Bez "tools" model nie potrafi wywoływać funkcji, więc Tool Calling nie zadziała.
+    if (modelInfo.Capabilities is { } capabilities && !capabilities.Contains("tools"))
+    {
+        Console.WriteLine($"Model {model} does not support tools (capabilities: {string.Join(", ", capabilities)}).");
         return;
     }
+
+    // ListRunningModelsAsync wywołuje endpoint Ollamy GET /api/ps (to samo co `ollama ps`).
+    // Model niezaładowany do pamięci zostanie wczytany przy pierwszym pytaniu, więc pierwsza odpowiedź potrwa dłużej.
+    var runningModels = await ollama.ListRunningModelsAsync();
+
+    var running = runningModels.FirstOrDefault(m => string.Equals(m.Name, model, StringComparison.OrdinalIgnoreCase));
+
+    Console.WriteLine(running is null
+        ? $"Model {model} is not loaded yet, the first response may be slower."
+        : $"Model {model} is loaded (expires at {running.ExpiresAt:HH:mm:ss}).");
 
     client = ollama;
 }
