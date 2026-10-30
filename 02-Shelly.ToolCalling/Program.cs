@@ -166,7 +166,7 @@ if (endpoint is null)
         if (!string.Equals(Console.ReadLine()?.Trim(), "y", StringComparison.OrdinalIgnoreCase))
             return;
 
-        if (!await PullModelAsync(ollama, model, new DockerPullProgress()))
+        if (!await PullModelAsync(ollama, model, new OllamaPullProgress()))
             return;
 
         modelInfo = await GetModelInfoAsync(ollama, model);
